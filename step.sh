@@ -1,22 +1,22 @@
 #!/bin/bash
-set -ex
+echo "Adding universe repository to apt-get"
+sudo add-apt-repository "deb http://cz.archive.ubuntu.com/ubuntu cosmic main universe"
 
-echo "This is the value specified for the input 'example_step_input': ${example_step_input}"
+echo "Update repositories, installing ppp and openfortivpn"
+sudo apt-get update && sudo apt-get install -y ppp && sudo apt-get install -y openfortivpn
 
-#
-# --- Export Environment Variables for other Steps:
-# You can export Environment Variables for other Steps with
-#  envman, which is automatically installed by `bitrise setup`.
-# A very simple example:
-envman add --key EXAMPLE_STEP_OUTPUT --value 'the value you want to share'
-# Envman can handle piped inputs, which is useful if the text you want to
-# share is complex and you don't want to deal with proper bash escaping:
-#  cat file_with_complex_input | envman add --KEY EXAMPLE_STEP_OUTPUT
-# You can find more usage examples on envman's GitHub page
-#  at: https://github.com/bitrise-io/envman
+echo "Installing iputils"
 
-#
-# --- Exit codes:
-# The exit code of your Step is very important. If you return
-#  with a 0 exit code `bitrise` will register your Step as "successful".
-# Any non zero exit code will be registered as "failed" by `bitrise`.
+sudo apt-get install -y iputils-ping
+
+echo "Starting VPN connection with gateway - ${host}':'${port}'}"
+
+sudo printf ${password} | nohup openfortivpn ${host}:${port} --username=${username} --trusted-cert ${trusted_cert} &> $BITRISE_DEPLOY_DIR/logs.txt & disown
+
+
+printf "%s" "waiting for VPN connection ..."
+while ! ping -c 1 ${host} &> /dev/null
+do
+    printf "%c" "."
+done
+printf "\n%s\n"  "VPN connection is up and running"
