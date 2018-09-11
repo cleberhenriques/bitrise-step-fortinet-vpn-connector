@@ -9,7 +9,7 @@ echo "Installing iputils"
 
 sudo apt-get install -y iputils-ping
 
-echo "Starting VPN connection with gateway - ${host}':'${port}'}"
+echo "Starting VPN connection with gateway - ${host}:${port}'}"
 
 sudo printf ${password} | nohup openfortivpn ${host}:${port} --username=${username} --trusted-cert ${trusted_cert} &> $BITRISE_DEPLOY_DIR/logs.txt & disown
 

@@ -57,7 +57,7 @@ inputs:
       is_expand: true
       is_required: true
       value_options: []
-  - usename:
+  - username:
     opts:
       title: Username
       summary: The username that will be used for authentication.
