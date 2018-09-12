@@ -1,6 +1,4 @@
 #!/bin/bash
-set -x
-
 echo "Adding universe repository to apt-get"
 sudo add-apt-repository "deb http://cz.archive.ubuntu.com/ubuntu cosmic main universe"
 
