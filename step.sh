@@ -14,8 +14,5 @@ sudo nohup openfortivpn ${host}:${port} --password=${password} --username=${user
 echo "creating log file"
 touch $BITRISE_DEPLOY_DIR/logs.txt
 
-echo "log"
-tail -f -n100 $BITRISE_DEPLOY_DIR/logs.txt
-
 echo "Waiting connection"
 ( tail -f -n0 $BITRISE_DEPLOY_DIR/logs.txt & ) | grep -q "Tunnel is up"
