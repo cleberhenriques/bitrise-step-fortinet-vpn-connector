@@ -15,4 +15,4 @@ echo "creating log file"
 touch $BITRISE_DEPLOY_DIR/logs.txt
 
 echo "Waiting connection"
-( tail -f -n0 $BITRISE_DEPLOY_DIR/logs.txt & ) | grep -q "Tunnel is up"
+tail -f -n0 $BITRISE_DEPLOY_DIR/logs.txt | grep -q "Tunnel is up"
