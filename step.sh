@@ -11,4 +11,4 @@ sudo nohup openfortivpn ${host}:${port} --password=${password} --username=${user
 sleep 3
 
 echo "Waiting connection"
-( tail -f -n0 $BITRISE_DEPLOY_DIR/logs.txt & ) | grep -q --line-buffered "Tunnel is up"
+( tail -f $BITRISE_DEPLOY_DIR/logs.txt & ) | grep -m1 "Tunnel is up"
