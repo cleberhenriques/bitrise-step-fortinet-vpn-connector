@@ -5,14 +5,10 @@ sudo add-apt-repository "deb http://cz.archive.ubuntu.com/ubuntu cosmic main uni
 echo "Update repositories, installing ppp and openfortivpn"
 sudo apt-get update && sudo apt-get install -y ppp && sudo apt-get install -y openfortivpn
 
-echo "Installing iputils"
-sudo apt-get install -y iputils-ping
-
 echo "Starting VPN connection with gateway - ${host}:${port}"
-sudo nohup openfortivpn ${host}:${port} --password=${password} --username=${username} --trusted-cert ${trusted_cert} &> ./logs.txt & disown
+sudo nohup openfortivpn ${host}:${port} --password=${password} --username=${username} --trusted-cert ${trusted_cert} &> $BITRISE_DEPLOY_DIR/logs.txt & disown
 
-echo "creating log file"
-touch $BITRISE_DEPLOY_DIR/logs.txt
+sleep 3
 
 echo "Waiting connection"
-( tail -f -n0 ./logs.txt & ) | grep -q --line-buffered "Tunnel is up"
+( tail -f -n0 $BITRISE_DEPLOY_DIR/logs.txt & ) | grep -q --line-buffered "Tunnel is up"
