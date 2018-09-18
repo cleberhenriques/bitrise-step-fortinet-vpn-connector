@@ -13,7 +13,7 @@ if [[ "$unamestr" == 'Linux' ]]; then
 else
 
   echo "Installing openfortivpn on MacOS"
-  sudo brew install -y openfortivpn
+  brew install -y openfortivpn
 
 fi
 
