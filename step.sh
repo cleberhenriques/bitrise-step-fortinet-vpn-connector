@@ -1,7 +1,7 @@
 #!/bin/bash
 set -x
 
-
+unamestr=`uname`
 if [[ "$unamestr" == 'Linux' ]]; then
 
   echo "Adding universe repository to apt-get"
